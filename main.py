@@ -49,7 +49,8 @@ def favourites_insert(id_vk: int, id_vk_fav: int, first_name: str, last_name: st
 
 
 def pretendents_output(id_vk: int):
-    '''Функция на вход принимает id_vk пользователя. Функция возращает словарь, где id_vk претендента - ключ, а  фамилия, имя, и ссылки на фото - элементы списка в значении словаря.'''
+    '''Функция на вход принимает id_vk пользователя. Функция возращает список списков, где 0,1,2,3,4,5 элементы вложенного списка это id_vk претендента, фамилия,
+    имя и ссылки на фото соответственно.'''
     pretendents_ = []
     for pretendents in session.query(PRETENDENTS).join(USERS).filter(USERS.id_vk == id_vk).all():
         list_= [pretendents.id_vk_pret, pretendents.first_name, pretendents.last_name, pretendents.photo_1, pretendents.photo_2, pretendents.photo_3]
@@ -58,7 +59,8 @@ def pretendents_output(id_vk: int):
 
 
 def favourites_output(id_vk: int):
-    '''Функция на вход принимает id_vk пользователя. Функция возращает словарь, где id_vk избранного - ключ, а  фамилия, имя, и ссылки на фото - элементы списка в значении словаря.'''
+    '''Функция на вход принимает id_vk пользователя. Функция возращает список списков, где 0,1,2,3,4,5 элементы вложенного списка это id_vk избранного, фамилия,
+    имя и ссылки на фото соответственно.'''
     favourites_ = []
     for favourite in session.query(FAVOURITES).join(USERS).filter(USERS.id_vk == id_vk).all():
         list_ = [favourite.id_vk_fav, favourite.first_name, favourite.last_name, favourite.photo_1, favourite.photo_2, favourite.photo_3]
