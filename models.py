@@ -11,12 +11,12 @@ class USERS(Base):
     first_name = sq.Column(sq.String(length=40))
     last_name = sq.Column(sq.String(length=40))
     city = sq.Column(sq.String(length=40))
-    age = sq.Column(sq.Integer)
+    dbirth = sq.Column(sq.Integer)
     sex = sq.Column(sq.Integer)
 
 
     def __str__(self):
-        return f" ({self.id}, {self.id_vk}, {self.first_name}, {self.last_name}, {self.city}, {self.age}, {self.sex})"
+        return f" ({self.id}, {self.id_vk}, {self.first_name}, {self.last_name}, {self.city}, {self.dbirth}, {self.sex})"
 
 
 class PRETENDENTS(Base):
@@ -25,7 +25,7 @@ class PRETENDENTS(Base):
     id = sq.Column(sq.Integer, primary_key=True)
     id_user = sq.Column(sq.Integer, sq.ForeignKey("users.id"), nullable=False)
     users = relationship(USERS, backref="pretendents")
-    id_vk_pret = sq.Column(sq.Integer, unique=True) # по id можно сделать ссылку на профиль
+    id_vk_pret = sq.Column(sq.Integer) # по id можно сделать ссылку на профиль
     first_name = sq.Column(sq.String(length=40))
     last_name = sq.Column(sq.String(length=40))
     photo_1 = sq.Column(sq.Text())
@@ -42,7 +42,7 @@ class FAVOURITES(Base):
     id = sq.Column(sq.Integer, primary_key=True)
     id_user = sq.Column(sq.Integer, sq.ForeignKey("users.id"), nullable=False)
     users = relationship(USERS, backref="favourites")
-    id_vk_fav = sq.Column(sq.Integer, unique=True) # по id можно сделать ссылку на профиль
+    id_vk_fav = sq.Column(sq.Integer) # по id можно сделать ссылку на профиль
     first_name = sq.Column(sq.String(length=40))
     last_name = sq.Column(sq.String(length=40))
     photo_1 = sq.Column(sq.Text())
