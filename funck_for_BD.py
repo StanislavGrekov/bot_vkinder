@@ -4,7 +4,6 @@ from models import create_tables,USERS,PRETENDENTS,FAVOURITES
 from pprint import pprint
 
 
-
 DSN = f'postgresql://postgres:masterkey@localhost:5432/vk_db' # Строка подключения к базе данных
 engine = sqlalchemy.create_engine(DSN)
 
