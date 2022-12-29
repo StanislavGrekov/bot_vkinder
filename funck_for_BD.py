@@ -2,9 +2,10 @@ import sqlalchemy
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from models import create_tables,USERS,PRETENDENTS,FAVOURITES
 from pprint import pprint
+from key_bd import user_login, user_key, name_bd
 
 
-DSN = f'postgresql://postgres:masterkey@localhost:5432/vk_db' # Строка подключения к базе данных
+DSN = f'postgresql://{user_login}:{user_key}@localhost:5432/{name_bd}' # Строка подключения к базе данных
 engine = sqlalchemy.create_engine(DSN)
 
 # create_tables(engine) # Эта функция создает/пересоздает таблицы. Для создания необходимо раскомментировать, потом закомментировать. Иначе таблицы будут пересоздаваться каждый раз.

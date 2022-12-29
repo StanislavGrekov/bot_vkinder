@@ -24,6 +24,8 @@ class VK:
             'hometown': city,
             'birth_year': bdate[-4:],  # Берем год  (считаем с конца)
             'fields': 'photo_200',
+            'is_closed': 0,
+            'has_photo': 1,
             'v': '5.131'
         }
         response = requests.get(URL, params={**self.params, **params}).json()

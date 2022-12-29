@@ -73,6 +73,9 @@ if __name__ == "__main__":
                             num_pr = 0
                             write_msg(event.user_id,
                                       f"Пока это все претенденты, можете начать сначала листать, нажмите кнопку Следующий")
+                        except NameError:
+                            write_msg(event.user_id, "Сначала необходимо нажать кнопку Начать")
+
                     else:
                         num_f += 1
                         favorites = favourites_output(event.user_id)
@@ -88,19 +91,27 @@ if __name__ == "__main__":
                                       f"Пока это все избранные.\n Нажми Начать для просмотра претендентов.")
 
                 elif request.lower() == "в избранное":
-                    favourites_insert(event.user_id, pretendets[num_pr][0], pretendets[num_pr][1], pretendets[num_pr][2],
-                                      pretendets[num_pr][3], pretendets[num_pr][4], pretendets[num_pr][5])
-                    write_msg(event.user_id,
-                              f'Претендент {pretendets[num_pr][1]} {pretendets[num_pr][2]} добавлен в избранное.\n'
-                              f'Для просмотра избранных претендентов нажми - Посмотреть избранное.')
+                    try:
+                        favourites_insert(event.user_id, pretendets[num_pr][0], pretendets[num_pr][1], pretendets[num_pr][2],
+                                          pretendets[num_pr][3], pretendets[num_pr][4], pretendets[num_pr][5])
+                        write_msg(event.user_id,
+                                  f'Претендент {pretendets[num_pr][1]} {pretendets[num_pr][2]} добавлен в избранное.\n'
+                                  f'Для просмотра избранных претендентов нажми - Посмотреть избранное.')
+                    except NameError:
+                        write_msg(event.user_id, "Некого добавлять в Избранное, сначала необходимо нажать кнопку Начать")
 
                 elif request.lower() == "посмотреть избранное":
-                    favorites = favourites_output(event.user_id)
-                    len_fav = len(favorites)  # количество фаворитов
-                    flag_fav = 1
-                    write_msg(event.user_id,
-                              f'{favorites[num_f][1]} ' f'{favorites[num_f][2]} \n' f'Ссылка на страничку: {link_profile}{favorites[num_f][0]} \n' f'Самые популярные фото странички: \n ' f'1. {favorites[num_f][3]} \n' f' 2. {favorites[num_f][4]} \n'  f'3. {favorites[num_f][5]} \n '
-                              f'Для перехода к следующему избранному нажми - Следующий.\n')
+                    try:
+                        favorites = favourites_output(event.user_id)
+                        len_fav = len(favorites)  # количество фаворитов
+                        flag_fav = 1
+                        write_msg(event.user_id,
+                                  f'{favorites[num_f][1]} ' f'{favorites[num_f][2]} \n' f'Ссылка на страничку: {link_profile}{favorites[num_f][0]} \n' f'Самые популярные фото странички: \n ' f'1. {favorites[num_f][3]} \n' f' 2. {favorites[num_f][4]} \n'  f'3. {favorites[num_f][5]} \n '
+                                  f'Для перехода к следующему избранному нажми - Следующий.\n')
+                    except IndexError:
+                        num_f = 0
+                        flag_fav = 0
+                        write_msg(event.user_id, "Избранных пока нет.")
 
                 else:
-                    write_msg(event.user_id, "Не поняла вашего ответа...")
+                    write_msg(event.user_id, "Не понял вашего ответа...")
