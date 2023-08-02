@@ -14,7 +14,9 @@ vk_user = VK(tokenVk)
 
 
 def write_msg(user_id, message, keyboard=None):
+
     '''Функция отправляет сообщения в чат бота. На вход принимает id пользователя, текст сообщения.'''
+
     post = {
         'user_id': user_id,
         'message': message,
@@ -38,6 +40,7 @@ if __name__ == "__main__":
     link_profile = 'https://vk.com/id'
 
     print('Напиши привет в чат...')
+
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW:
             if event.to_me:
@@ -54,12 +57,14 @@ if __name__ == "__main__":
                     keyboard.add_button('Посмотреть избранное', color=VkKeyboardColor.SECONDARY)
                     write_msg(event.user_id,
                               f"Привет, {user_name}! Мы хотим помочь тебе найти вторую половинку, нажми Начать", keyboard)
+
                 elif request.lower() == "начать":
                     pretendets = pretendents_output(event.user_id)
                     write_msg(event.user_id,
                               f'{pretendets[num_pr][1]} ' f'{pretendets[num_pr][2]} \n' f'Ссылка на страничку: {link_profile}{pretendets[num_pr][0]} \n' f'Самые популярные фото странички: \n ' f'1. {pretendets[num_pr][3]} \n' f' 2. {pretendets[num_pr][4]} \n'  f'3. {pretendets[num_pr][5]} \n '
                               f'Для перехода к следующему претенденту нажми - Следующий,\n'
                               f'Для добавления претендента в избранное нажми - В избранное.')
+
                 elif request.lower() == "следующий":
                     if flag_fav == 0:
                         num_pr += 1

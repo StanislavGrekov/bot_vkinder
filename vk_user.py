@@ -13,6 +13,7 @@ class VK:
 
 
     def search_people(self, city, bdate, sex):
+
         '''Метод для поиска претендентов в Вк. На вход принимает название города, год рождения, пол.
          Вызывает метод поиска фотографий - download_from_vk. Вызывает функцию,
          которая вносит собранную информацию  (id-претендента, имя, фамили, 3 фотографии) в БД.'''
@@ -35,15 +36,15 @@ class VK:
 
             try:
                 photo1 = list_photo[0][0]
-            except:  # Тут надо посмотреть какой код ошибки формируется
+            except:
                 photo1 = 'К сожалению фото №1 нет'
             try:
                 photo2 = list_photo[1][0]
-            except:  # Тут надо посмотреть какой код ошибки формируется
+            except:
                 photo2 = 'К сожалению фото №2 нет'
             try:
                 photo3 = list_photo[2][0]
-            except:  # Тут надо посмотреть какой код ошибки формируется
+            except:
                 photo3 = 'К сожалению фото №3 нет'
 
             pretendents_insert(self.id, element['id'], element['first_name'], element['last_name'], photo1, photo2,
@@ -51,8 +52,10 @@ class VK:
 
 
     def users_info(self, user_id):
+
         '''Метод для  получения информации о пользователе. На вход принимает id пользователя Вк.
         Вызывает метод поиска людей -  search_people. Возвращает имя пользователя.'''
+
         url = 'https://api.vk.com/method/users.get'
         params = {'user_ids': user_id,
                   'fields': 'sex, bdate, city',
@@ -74,10 +77,13 @@ class VK:
 
 
     def download_from_vk(self, user_id):
+
         '''Метод для поиска фотографий. На вход принимает id-претендента. Возвращает отсортированный кортеж,
         где первый элемент – ссылка на фото, второй – кол-во лайков. '''
+
         url = 'https://api.vk.com/method/photos.get'
         params = {'owner_id': user_id, 'album_id': 'profile', 'extended': 1, 'count': 100}
+
         try:  # Блок try нужен чтобы код не падал, когда приходит id закрытого профиля
             response = requests.get(url, params={**self.params, **params})
             dict_likes = {}
